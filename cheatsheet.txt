@@ -1,11 +1,59 @@
+# Initialize repo
 git init
+
+# Check status
 git status
+
+# Stage files
 git add .
+git add file.txt
+
+# Commit
 git commit -m "message"
-git log
-git branch
-git switch branch-name
-git merge branch-name
-git pull
+
+# View history
+git log --oneline
+
+# Create branch
+git branch feature
+
+# Switch branch
+git checkout feature
+
+# Create + switch
+git checkout -b feature
+
+# Merge branch
+git merge feature
+
+# Delete branch
+git branch -d feature
+
+# Clone repo
+git clone URL
+
+# Push changes
 git push
-git clone url
+
+# Pull changes
+git pull
+
+# Add remote
+git remote add origin URL
+
+# Undo changes
+git restore file.txt
+
+# Reset
+git reset --soft HEAD~1
+git reset --hard HEAD~1
+
+# Stash
+git stash
+git stash pop
+
+# Rebase
+git rebase main
+
+# Tags
+git tag v1.0
