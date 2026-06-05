@@ -71,7 +71,6 @@ class UserInput(BaseModel):
 
 @app.post('/predict')
 def predict_premium(data: UserInput):
-
     input_df = pd.DataFrame([{
         'bmi': data.bmi,
         'age_group': data.age_group,
@@ -81,10 +80,20 @@ def predict_premium(data: UserInput):
         'occupation': data.occupation
     }])
 
+    # Get the prediction
     prediction = model.predict(input_df)[0]
+    
+    # Get probabilities (if the model supports it)
+    probabilities = model.predict_proba(input_df)[0]
+    classes = model.classes_
+    class_probs = dict(zip(classes, [round(float(p), 4) for p in probabilities]))
+    confidence = max(probabilities)
 
-    return JSONResponse(status_code=200, content={'predicted_category': prediction})
-
-
-
-
+    # Return a structure that matches the frontend's expectations
+    return {
+        "response": {
+            "predicted_category": str(prediction),
+            "confidence": f"{confidence:.2%}",
+            "class_probabilities": class_probs
+        }
+    }
